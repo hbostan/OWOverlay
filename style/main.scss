@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "Overwatch";
+  src: url(../fonts/koverwatch.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "iOverwatch";
+  src: url(../fonts/bignoodletoo.ttf) format("truetype");
+}
+
+/// Stroke font-character
+/// @param  {Integer} $stroke - Stroke width
+/// @param  {Color}   $color  - Stroke color
+/// @return {List}            - text-shadow list
+@function stroke($stroke, $color) {
+  $shadow: ();
+  $from: $stroke * -1;
+  @for $i from $from through $stroke {
+    @for $j from $from through $stroke {
+      $shadow: append($shadow, $i * 1px $j * 1px 0 $color, comma);
+    }
+  }
+  @return $shadow;
+}
+/// Stroke font-character
+/// @param  {Integer} $stroke - Stroke width
+/// @param  {Color}   $color  - Stroke color
+/// @return {Style}           - text-shadow
+@mixin stroke($stroke, $color) {
+  text-shadow: stroke($stroke, $color);
+}
+
+html,
+body {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "iOverwatch";
+  font-size: 2em;
+  color: white;
+}
+
+.block-reveal {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  /* padding: 0.1em; */
+  width: 650px;
+  margin: auto;
+}
+
+.block-reveal:after {
+  background: #1e90ff;
+  bottom: 0;
+  content: "";
+  left: 0;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: transform 1s cubic-bezier(0.73, 0.01, 0.42, 1.01);
+  transform: translate(-110%, 0);
+  /*animation: block-reveal 1s both;*/
+}
+
+.block-reveal.hide:after {
+  transform: translate(0, 0);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.continer > div {
+  flex: 1;
+}
+
+.win,
+.lose,
+.draw,
+.sr-score {
+  margin: 15px;
+}
+.win {
+  /* color: #00395f; */
+  @include stroke(2, black);
+}
+.lose {
+  /* color: #ff1d34; */
+  @include stroke(2, black);
+}
+.draw {
+  /* color: #ffe847; */
+  @include stroke(2, black);
+}
+
+.sr-score {
+  /* color: #00395f; */
+  left: -2%;
+  @include stroke(2, black);
+}
+
+.sr-logo {
+  height: 2em;
+}
